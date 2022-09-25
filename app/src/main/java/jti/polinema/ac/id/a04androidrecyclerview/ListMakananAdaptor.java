@@ -17,6 +17,12 @@ import java.util.List;
 
 public class ListMakananAdaptor extends RecyclerView.Adapter<ListMakananAdaptor.ListViewHolder>{
     private ArrayList<Makanan> listMakanan;
+    private OnItemClickCallback onItemClickCallback;
+
+    public void setOnItemClickCallback(OnItemClickCallback onitemClickCallback){
+    this.onItemClickCallback = onitemClickCallback;
+    };
+
     public ListMakananAdaptor(ArrayList<Makanan> list){
         this.listMakanan = list;
     }
@@ -37,6 +43,13 @@ public class ListMakananAdaptor extends RecyclerView.Adapter<ListMakananAdaptor.
         holder.tvName.setText(makan.getNama());
         holder.tvDetail.setText(makan.getDetail());
 
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onItemClickCallback.onItemClicked(listMakanan.get(holder.getAdapterPosition()));
+            }
+        });
+
     }
 
     @Override
@@ -56,4 +69,7 @@ public class ListMakananAdaptor extends RecyclerView.Adapter<ListMakananAdaptor.
 
         }
     }
+    public interface OnItemClickCallback{
+      void onItemClicked(Makanan data);
+    };
 }

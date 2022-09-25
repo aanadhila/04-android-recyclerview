@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -28,5 +30,16 @@ public class MainActivity extends AppCompatActivity {
       rvMakan.setLayoutManager(new LinearLayoutManager(this));
         ListMakananAdaptor listMakananAdaptor = new ListMakananAdaptor(list);
         rvMakan.setAdapter(listMakananAdaptor);
-    };
+
+        listMakananAdaptor.setOnItemClickCallback(new ListMakananAdaptor.OnItemClickCallback() {
+            @Override
+            public void onItemClicked(Makanan makan) {
+                Intent moveIntent = new Intent (MainActivity.this, Detail.class);
+                moveIntent.putExtra(Detail.ITEM_EXTRA, makan);
+                startActivity(moveIntent);
+            }
+        });
+    }
+
+
 }
